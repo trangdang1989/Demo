@@ -1,5 +1,4 @@
 package loginfunction;
-
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,17 +7,14 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.List;
 
 public class LoginPage {
     WebDriverWait wait;
-
     public LoginPage(WebDriver driver){
         PageFactory.initElements(driver,this);
         wait = new WebDriverWait(driver, 30);
     }
-
     //locators
     @FindBy(how = How.XPATH, using = "//input[@type='text']")
     private WebElement company;
@@ -44,6 +40,7 @@ public class LoginPage {
     @FindBy(how = How.CLASS_NAME, using = "message")
     private WebElement error_message;
 
+    public String baseUrl = "https://web.qa.leapxpert.app/account/profile";
 
     public void enter_company(String name){
         wait.until(ExpectedConditions.visibilityOf(company));
@@ -65,7 +62,6 @@ public class LoginPage {
     public void enter_otp(int num1, int num2, int num3, int num4, int num5, int num6){
         wait.until(ExpectedConditions.visibilityOfAllElements(OTP));
         int[] my_num = {num1, num2, num3, num4, num5, num6};
-
         for(int i=0; i< OTP.size(); i++){
             OTP.get(i).sendKeys(String.valueOf(my_num[i]));
         }
@@ -74,7 +70,6 @@ public class LoginPage {
     public void tapOn_next_button(){
         nextButton.click();
     }
-
 
     public void tapOn_login_button(){
         loginButton.click();
@@ -91,5 +86,4 @@ public class LoginPage {
         String actual_text = error_message.getText();
         Assert.assertEquals(message, actual_text);
     }
-
 }
